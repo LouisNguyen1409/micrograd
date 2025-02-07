@@ -1,4 +1,4 @@
-from trace_graph import *
+from utils.trace_graph import *
 import math
 
 
