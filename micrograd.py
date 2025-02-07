@@ -1,4 +1,5 @@
 from trace_graph import *
+import math
 
 
 class Value:
@@ -20,16 +21,8 @@ class Value:
         out = Value(self.data * other.data, (self, other), '*')
         return out
 
-
-
-a = Value(2.0, label='a')
-b = Value(-3.0, label='b')
-c = Value(10.0, label='c')
-e = a * b
-e.label = 'e'
-d = e + c
-d.label = 'd'
-f = Value(-2.0, label='f')
-L = d * f
-L.label = 'L'
-draw_dot(L)
+    def tanh(self):
+        n = self.data
+        t = (math.exp(2*n) - 1) / (math.exp(2*n) + 1)
+        out = Value(t, (self, ), 'tanh')
+        return out
