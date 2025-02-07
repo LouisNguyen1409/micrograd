@@ -1,10 +1,19 @@
 from micrograd.engine import *
 import random
 
+
+class Module:
+
+    def zero_grad(self):
+        for p in self.parameters():
+            p.grad = 0
+
+    def parameters(self):
+        return []
+
+
 # nin: number of inputs
-
-
-class Neuron:
+class Neuron(Module):
     def __init__(self, nin):
         self.w = [Value(random.uniform(-1, 1)) for _ in range(nin)]
         self.b = Value(random.uniform(-1, 1))
@@ -25,7 +34,7 @@ class Neuron:
 # nout: number of neurons
 
 
-class Layer:
+class Layer(Module):
     def __init__(self, nin, nout):
         self.neurons = [Neuron(nin) for _ in range(nout)]
 
@@ -45,7 +54,7 @@ class Layer:
 # nouts = list of define the number of neurons of all the layers
 
 
-class MLP:
+class MLP(Module):
     def __init__(self, nin, nouts):
         sz = [nin] + nouts
         self.layers = [Layer(sz[i], sz[i + 1]) for i in range(len(nouts))]
