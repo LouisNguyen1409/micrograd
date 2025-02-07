@@ -86,6 +86,9 @@ class Value:
         for node in reversed(topo):
             node._backward()
 
+    def __neg__(self):  # -self
+        return self * -1
+
     def __radd__(self, other):  # other + self
         return self + other
 

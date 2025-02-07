@@ -35,12 +35,12 @@ The notebook `train.ipynb` provides a full demo of training an 2-layer neural ne
 
 ### Tracing / visualization
 
-For added convenience, the `visualise.ipynb` produces graphviz visualizations. E.g. this one below is of a simple 2D neuron, arrived at by calling `draw_dot` on the code below, and it shows both the data (left number in each node) and the gradient (right number in each node).
+For added convenience, the `nnVisualise.ipynb` and `engineVisualise.ipynb` produces graphviz visualizations. E.g. this one below is of a simple 2D neuron, arrived at by calling `draw_dot` on the code below, and it shows both the data (left number in each node) and the gradient (right number in each node).
 
-````python
+```python
 from micrograd import nn
 n = nn.Neuron(2)
 x = [Value(1.0), Value(-2.0)]
 y = n(x)
 dot = draw_dot(y)
-````
+```
