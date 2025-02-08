@@ -49,6 +49,17 @@ class Value:
     def __truediv__(self, other):  # self / other
         return self * other**-1
 
+    def exp(self):
+        x = self.data
+        out = Value(math.exp(x), (self, ), 'exp')
+
+        def _backward():
+            self.grad += out.data * out.grad
+
+        out._backward = _backward
+        return out
+
+    # Activation Function Tanh
     def tanh(self):
         n = self.data
         t = (math.exp(2*n) - 1) / (math.exp(2*n) + 1)
@@ -60,6 +71,7 @@ class Value:
         out._backward = _backward
         return out
 
+    # Activation Function Relu
     def relu(self):
         out = Value(0 if self.data < 0 else self.data, (self,), 'ReLU')
 
@@ -67,16 +79,6 @@ class Value:
             self.grad += (out.data > 0) * out.grad
         out._backward = _backward
 
-        return out
-
-    def exp(self):
-        x = self.data
-        out = Value(math.exp(x), (self, ), 'exp')
-
-        def _backward():
-            self.grad += out.data * out.grad
-
-        out._backward = _backward
         return out
 
     def backward(self):
